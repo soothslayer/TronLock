@@ -17,20 +17,20 @@
 @implementation HMJSONParser
 
 + (id)parse:(NSDictionary *)dictionary ObjectForKey:(NSString *)key {
-    NSLog(@"parsing key:%@", key);
+    //NSLog(@"parsing key:%@", key);
     if ([dictionary objectForKey:key] == [NSNull null]) {
-        NSLog(@"null");
+        //NSLog(@"null");
         return nil;
     }
-    NSLog(@"not null");
+    //NSLog(@"not null");
     if ([[dictionary objectForKey:key] isKindOfClass:[NSString class]]) {
-        NSLog(@"string class");
+        //NSLog(@"string class");
         NSString *objectAtKey = [dictionary objectForKey:key];
         if ([key isEqualToString:@"state"]) {
-            NSLog(@"string is state");
+            //NSLog(@"string is state");
             return [HMJSONParser convertLockStateString:objectAtKey];
         }
-        NSLog(@"string is not state");
+        //NSLog(@"string is not state");
     }
     return [dictionary objectForKey:key];
 }
@@ -38,7 +38,7 @@
     return ([stateNumber integerValue] == LockitronSDKLockOpen) ? @"unlock" : @"lock";
 }
 + (NSNumber *)convertLockStateString:(NSString *)stateString {
-    NSLog(@"checking if unlock");
+    //NSLog(@"checking if unlock");
     return ([stateString isEqualToString:@"unlock"]) ? [NSNumber numberWithInteger:LockitronSDKLockOpen] : [NSNumber numberWithInteger:LockitronSDKLockClosed];
 }
 @end

@@ -43,6 +43,7 @@
     return [self lockitronAPIRequestforLocksorUsers:@"locks" withRequestMethod:@"GET" andDirectory:nil andAruments:nil];
 }
 - (id)lockitronAPIRequestforLocksorUsers:(NSString *)locksOrUsers withRequestMethod:(NSString *)requestMethod andDirectory:(NSString *)directory andAruments:(NSDictionary *)arguments {
+    NSMutableDictionary *mutableArguments = [NSMutableDictionary dictionaryWithDictionary:arguments];
     //set up the base url
     NSString *urlString = [NSString stringWithFormat:@"%@v2", lockitronBaseURL];
     //add the locks or users subdirectory
@@ -57,10 +58,14 @@
     }
     //now add the access token
     urlString = [urlString stringByAppendingString:[NSString stringWithFormat:@"?access_token=%@", _accessTokenObject.access_token]];
+    //add no block parm if put
     //now add any arguments
     if (arguments != nil) {
-        for (NSString *argument in [arguments allKeys]) {
-            urlString = [urlString stringByAppendingString:[NSString stringWithFormat:@"&%@=%@", argument, [arguments objectForKey:argument]]];
+        if ([requestMethod isEqualToString:@"PUT"]) {
+            [mutableArguments addEntriesFromDictionary:@{@"noblock" : @"true"}];
+        }
+        for (NSString *argument in [mutableArguments allKeys]) {
+            urlString = [urlString stringByAppendingString:[NSString stringWithFormat:@"&%@=%@", argument, [mutableArguments objectForKey:argument]]];
         }
     }
     NSLog(@"sending api request:%@", urlString);
@@ -110,7 +115,7 @@
     HMLock *lock = [_dataAccessor createNewEntityWithName:@"HMLock"];
     
     BOOL wasFound = NO;
-    NSLog(@"Cycling through the %lu locks in memory", _accessTokenObject.locks.count);
+    //NSLog(@"Cycling through the %lu locks in memory", _accessTokenObject.locks.count);
     //cycle through the locks in memory
     for (HMLock *lockAssocatedToAccessToken in _accessTokenObject.locks) {
         if ([lockAssocatedToAccessToken.id isEqualToString:[item objectForKey:@"id"]]) {
@@ -127,7 +132,7 @@
             [_delegate lockNotificationNewID:lock.id];
         }
     }
-    NSLog(@"associating access token with lock");
+    //NSLog(@"associating access token with lock");
     
     lock.access_token = _accessTokenObject;
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
@@ -173,7 +178,7 @@
         NSLog(@"Lock:%@ state has changed from %@ to %@. Notifying delegate", lock.id, lock.state, newState);
         lock.state = newState;
         if ([_delegate respondsToSelector:@selector(lockNotificationLock:ChangedLockStateTo:)]) {
-            [_delegate lockNotificationLock:lock.id ChangedLockStateTo:lock.state];
+            [_delegate lockNotificationLock:lock ChangedLockStateTo:lock.state];
         }
     }//end of lock/unlock check
     lock.time_zone = [item objectForKey:@"time_zone"];
@@ -186,7 +191,7 @@
     HMKey *key = [_dataAccessor createNewEntityWithName:@"HMKey"];
     
     BOOL wasFound = NO;
-    NSLog(@"Cycling through the %lu keys in memory", lock.keys.count);
+    //NSLog(@"Cycling through the %lu keys in memory", lock.keys.count);
     //get the keys associated with this lock
     for (HMKey *keysAssocatedWithThisLock in lock.keys) {
         if ([[JSONData objectForKey:@"id"] isEqualToString:keysAssocatedWithThisLock.id]) {
@@ -200,7 +205,7 @@
         NSLog(@"Creating new key since no key matchind id was found");
         key.id = [JSONData objectForKey:@"id"];
     }
-    NSLog(@"associating key with lock");
+    //NSLog(@"associating key with lock");
     key.lock = lock;
     
     if ([JSONData objectForKey:@"expiration_date"] != [NSNull null]) {
@@ -237,12 +242,12 @@
     BOOL wasFound = NO;
     HMUser *userAssociatedWithKey = key.user;
     if ([userAssociatedWithKey.id isEqualToString:[JSONData objectForKey:@"id"]]) {
-        NSLog(@"User ID from memory matches user id from web");
+        //NSLog(@"User ID from memory matches user id from web");
         [_dataAccessor deleteEntityObject:user];
         user = userAssociatedWithKey;
         wasFound = YES;
     } else {
-        NSLog(@"User ID's don't match");
+        //NSLog(@"User ID's don't match");
     }
     if (!wasFound) {
         NSLog(@"creating new user since no locks in memory found matching memory");
@@ -275,10 +280,15 @@
     }
     return [dictionary objectForKey:key];
 }
+- (NSDictionary *)requestLock:(HMLock *)lock {
+    return [self lockitronAPIRequestforLocksorUsers:@"locks" withRequestMethod:@"GET" andDirectory:lock.id andAruments:nil];
+}
 - (void)requestLock:(HMLock *)lock ChangeAttribute:(NSString *)attribute to:(NSString *)changeTo {
     NSLog(@"HMLockitronAPI lock:%@ request %@ change to %@", lock.name, attribute, changeTo);
 
-    NSDictionary *response = [self lockitronAPIRequestforLocksorUsers:@"locks" withRequestMethod:@"PUT" andDirectory:lock.id andAruments:@{attribute : changeTo}];
+    [self lockitronAPIRequestforLocksorUsers:@"locks" withRequestMethod:@"PUT" andDirectory:lock.id andAruments:@{attribute : changeTo}];
+    NSDictionary *response = [self requestLock:lock];
     [self parseLockInfofromJSONData:response];
+    [_dataAccessor save];
 }
 @end

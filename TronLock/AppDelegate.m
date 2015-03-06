@@ -41,7 +41,7 @@
     return NO;
 }
 //passing the notification on to the visable controller
-- (void)lockNotificationLock:(NSString *)lock ChangedLockStateTo:(NSNumber *)changedState {
+- (void)lockNotificationLock:(HMLock *)lock ChangedLockStateTo:(NSNumber *)changedState {
     UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
     HMLockitronViewController *visableViewController = (HMLockitronViewController *)[navController visibleViewController];
     [visableViewController lockNotificationLock:lock ChangedLockStateTo:changedState];

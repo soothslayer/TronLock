@@ -101,7 +101,7 @@ static HMLockitronManager *_instance = nil;
     [_instance.lockitronAPIinstance requestLock:lock ChangeAttribute:attribute to:changeTo];
 }
 //HMLockitronAPI Delegate Methods that need to be forwarded to HMLockitronManager's Delegate
-- (void)lockNotificationLock:(NSString *)lock ChangedLockStateTo:(NSNumber *)changedState {
+- (void)lockNotificationLock:(HMLock *)lock ChangedLockStateTo:(NSNumber *)changedState {
     [_delegate lockNotificationLock:lock ChangedLockStateTo:changedState];
 }
 + (NSArray *)lockList {

@@ -19,7 +19,7 @@
 - (void)lockitronDeniedAccess:(HMLock *)lock errorMessage:(NSString *)error;
 - (void)showLoginVCbecauseAccessTokenIsExpiredOrNil:(NSString *)expiredOrNil;
 //delegates forwarded from HMLockitrornAPI
-- (void)lockNotificationLock:(NSString *)lock ChangedLockStateTo:(NSNumber *)changedState;
+- (void)lockNotificationLock:(HMLock *)lock ChangedLockStateTo:(NSNumber *)changedState;
 
 @end
 

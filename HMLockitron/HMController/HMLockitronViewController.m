@@ -7,6 +7,8 @@
 //
 
 #import "HMLockitronViewController.h"
+#import <CRToast/CRToast.h>
+#import "HMLock.h"
 
 @interface HMLockitronViewController ()
 
@@ -26,8 +28,8 @@
 - (void)showLoginVCbecauseAccessTokenIsExpiredOrNil:(NSString *)expiredOrNil {
 
 }
-- (void)lockNotificationLock:(NSString *)lock ChangedLockStateTo:(NSNumber *)changedState {
-    
+- (void)lockNotificationLock:(HMLock *)lock ChangedLockStateTo:(NSNumber *)changedState {
+    [CRToastManager showNotificationWithMessage:[NSString stringWithFormat:@"%@ just %@", lock.name, ([changedState integerValue] == 0) ? @"Unlocked" : @"Locked"] completionBlock:nil];
 }
 - (NSString *)displayFuzzyTimeFromDate:(NSDate *)fromDate basedOnTimeZone:(NSString *)timeZone {
     NSString *fuzzyTime = @"";
@@ -50,16 +52,36 @@
     NSInteger hours = fmod(timeSince, 87500) / 3600;
     NSInteger days = timeSince / 87500;
     if (days > 0) {
-        fuzzyTime = [fuzzyTime stringByAppendingString:[NSString stringWithFormat:@"%li days ", (long)days]];
+        fuzzyTime = [fuzzyTime stringByAppendingString:[NSString stringWithFormat:@"%li ", (long)days]];
+        if (minutes > 1 && minutes < 2) {
+            fuzzyTime = [fuzzyTime stringByAppendingString:@"Day "];
+        } else {
+            [fuzzyTime stringByAppendingString:@"Days "];
+        }
     }
     if (hours > 0) {
-        fuzzyTime = [fuzzyTime stringByAppendingString:[NSString stringWithFormat:@"%li hours ", (long)hours]];
+        fuzzyTime = [fuzzyTime stringByAppendingString:[NSString stringWithFormat:@"%li ", (long)hours]];
+        if (minutes > 1 && hours < 2) {
+            fuzzyTime = [fuzzyTime stringByAppendingString:@"Hour "];
+        } else {
+            fuzzyTime = [fuzzyTime stringByAppendingString:@"Hours "];
+        }
     }
     if (minutes > 0) {
-        fuzzyTime = [fuzzyTime stringByAppendingString:[NSString stringWithFormat:@"%li minutes ", (long)minutes]];
+        fuzzyTime = [fuzzyTime stringByAppendingString:[NSString stringWithFormat:@"%li ", (long)minutes]];
+        if (minutes > 1 && minutes < 2) {
+            fuzzyTime = [fuzzyTime stringByAppendingString:@"Minute "];
+        } else {
+            fuzzyTime = [fuzzyTime stringByAppendingString:@"Minutes "];
+        }
     }
     if (seconds > 0 && minutes == 0) {
-        fuzzyTime = [fuzzyTime stringByAppendingString:[NSString stringWithFormat:@"%li seconds ", (long)seconds]];
+        fuzzyTime = [fuzzyTime stringByAppendingString:[NSString stringWithFormat:@"%li ", (long)seconds]];
+        if (seconds > 1 && seconds < 2) {
+            fuzzyTime = [fuzzyTime stringByAppendingString:@"Second "];
+        } else {
+            fuzzyTime = [fuzzyTime stringByAppendingString:@"Seconds "];
+        }
     }
     return fuzzyTime;
 }

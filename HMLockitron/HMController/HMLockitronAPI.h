@@ -21,7 +21,7 @@ static const NSString *suiteName = @"group.hanlonmiller";
 
 @optional
 - (void)lockNotificationNewID:(NSString *)newID;
-- (void)lockNotificationLock:(NSString *)lock ChangedLockStateTo:(NSNumber *)changedState;
+- (void)lockNotificationLock:(HMLock *)lock ChangedLockStateTo:(NSNumber *)changedState;
 @end
 
 @interface HMLockitronAPI : NSObject

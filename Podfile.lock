@@ -1,0 +1,10 @@
+PODS:
+  - CRToast (0.0.7)
+
+DEPENDENCIES:
+  - CRToast (~> 0.0.7)
+
+SPEC CHECKSUMS:
+  CRToast: f9f2c4b29776d68ba24c4d621cba59a83fea921b
+
+COCOAPODS: 0.36.0.rc.1

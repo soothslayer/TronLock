@@ -29,7 +29,7 @@
     _sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:[NSString stringWithFormat:@"%@", suiteName]];
     _URIcallback = URIcallback;
     _dataAccessor = [HMDataAccessor new];
-    NSLog(@"data accessor in auuthenticator is:%@", _dataAccessor);
+    //NSLog(@"data accessor in auuthenticator is:%@", _dataAccessor);
     return self;
 }
 
@@ -40,10 +40,10 @@
         _accessTokenObject = [_dataAccessor createNewEntityWithName:@"HMAccessToken"];
     } else {
         _accessTokenObject = accessTokensInCoreData[0];
-        NSLog(@"access token found in memory:%@", _accessTokenObject);
+        //NSLog(@"access token found in memory:%@", _accessTokenObject);
     }
     //first check to see if the access Token from DataAccessor is not nil and not expired
-    NSLog(@"expiration date:%@ today's date:%@", _accessTokenObject.expiration_date, [NSDate date]);
+    //NSLog(@"expiration date:%@ today's date:%@", _accessTokenObject.expiration_date, [NSDate date]);
     NSComparisonResult result = [_accessTokenObject.expiration_date compare:[NSDate date]];
     
     if (result == NSOrderedAscending || result == NSOrderedSame)

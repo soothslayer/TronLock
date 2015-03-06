@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "HMLockitronManager.h"
-
+@class HMLock;
 @interface HMLockitronViewController : UIViewController
 - (void)refreshAllLocks;
 - (void)showLoginVCbecauseAccessTokenIsExpiredOrNil:(NSString *)expiredOrNil;
-- (void)lockNotificationLock:(NSString *)lock ChangedLockStateTo:(NSNumber *)changedState;
+- (void)lockNotificationLock:(HMLock *)lock ChangedLockStateTo:(NSNumber *)changedState;
+- (NSString *)displayFuzzyTimeFromDate:(NSDate *)fromDate basedOnTimeZone:(NSString *)timeZone;
 @end
