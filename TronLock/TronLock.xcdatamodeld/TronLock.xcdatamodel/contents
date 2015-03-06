@@ -1,4 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="HMAccessToken" representedClassName="HMAccessToken" syncable="YES">
+        <attribute name="access_token" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="expiration_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="locks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HMLock" inverseName="access_token" inverseEntity="HMLock" syncable="YES"/>
+    </entity>
+    <entity name="HMKey" representedClassName="HMKey" syncable="YES">
+        <attribute name="expiration_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="role" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="sms_pin" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="start_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="valid" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="visible" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="lock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HMLock" inverseName="keys" inverseEntity="HMLock" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="HMUser" inverseName="key" inverseEntity="HMUser" syncable="YES"/>
+    </entity>
+    <entity name="HMLock" representedClassName="HMLock" syncable="YES">
+        <attribute name="avr_update_progress" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="avr_version" optional="YES" attributeType="Integer 64" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="battery_voltage" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="ble_update_progress" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="button_type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="handedness" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="harrdware_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="last_heard_from" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="next_wake" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="serial_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sleep_period" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="sms" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="time_zone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updated_at" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="access_token" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HMAccessToken" inverseName="locks" inverseEntity="HMAccessToken" syncable="YES"/>
+        <relationship name="keys" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HMKey" inverseName="lock" inverseEntity="HMKey" syncable="YES"/>
+    </entity>
+    <entity name="HMUser" representedClassName="HMUser" syncable="YES">
+        <attribute name="activated" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="avatar_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="changing_email" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="changing_phone" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="facebook" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="first_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="full_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="last_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="key" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="HMKey" inverseName="user" inverseEntity="HMKey" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="HMAccessToken" positionX="-216" positionY="-315" width="128" height="88"/>
+        <element name="HMLock" positionX="-45" positionY="-124" width="128" height="328"/>
+        <element name="HMKey" positionX="124" positionY="26" width="128" height="178"/>
+        <element name="HMUser" positionX="331" positionY="-34" width="128" height="223"/>
+    </elements>
 </model>

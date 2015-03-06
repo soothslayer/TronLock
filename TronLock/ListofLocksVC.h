@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <HMLockitron/HMLockitron.h>
 
-@interface ViewController : UIViewController
+@interface ListOfLocks : HMLockitronViewController
 
 
 @end
