@@ -72,15 +72,14 @@ static HMLockitronManager *_instance = nil;
 - (void)accessTokenIsValid {
     #pragma You should think about having only one instance pull and save the access token from/to memory
     
-    [_delegate refreshAllLocks];
     //pull the access token from memory
     NSArray *accessTokensInMemory = [_dataAccessor fetchEntitiesWithName:@"HMAccessToken"];
     _accessTokenObject = accessTokensInMemory[0];
     NSLog(@"accessToken is valid and was received from memory:%@", _accessTokenObject);
     
     //load it into LockitronAPI
-    //_lockitronAPIinstance.accessTokenObject = _accessTokenObject;
     [self loadAllLocksFromLockitronAPI];
+    [_delegate refreshAllLocks];
 }
 - (void)accessTokenIsExpiredOrNil:(NSString *)expiredOrNil {
     [_delegate showLoginVCbecauseAccessTokenIsExpiredOrNil:expiredOrNil];

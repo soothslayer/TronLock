@@ -12,3 +12,9 @@
 #define COCOAPODS_VERSION_MINOR_CRToast 0
 #define COCOAPODS_VERSION_PATCH_CRToast 7
 
+// DejalActivityView
+#define COCOAPODS_POD_AVAILABLE_DejalActivityView
+#define COCOAPODS_VERSION_MAJOR_DejalActivityView 1
+#define COCOAPODS_VERSION_MINOR_DejalActivityView 2
+#define COCOAPODS_VERSION_PATCH_DejalActivityView 0
+

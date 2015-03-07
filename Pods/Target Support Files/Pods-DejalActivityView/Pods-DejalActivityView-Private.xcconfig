@@ -1,0 +1,6 @@
+#include "Pods-DejalActivityView.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/DejalActivityView" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/CRToast" "${PODS_ROOT}/Headers/Public/DejalActivityView"
+OTHER_LDFLAGS = ${PODS_DEJALACTIVITYVIEW_OTHER_LDFLAGS} -ObjC
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES

@@ -2,13 +2,14 @@
 //  HMLock.m
 //  TronLock
 //
-//  Created by Hanlon Miller on 2/26/15.
+//  Created by Hanlon Miller on 3/6/15.
 //  Copyright (c) 2015 Hanlon Miller Inc. All rights reserved.
 //
 
 #import "HMLock.h"
 #import "HMAccessToken.h"
 #import "HMKey.h"
+#import "HMPendingActivity.h"
 #import "HMLockitronManager.h"
 
 @implementation HMLock
@@ -19,7 +20,7 @@
 @dynamic ble_update_progress;
 @dynamic button_type;
 @dynamic handedness;
-@dynamic harrdware_id;
+@dynamic hardware_id;
 @dynamic id;
 @dynamic last_heard_from;
 @dynamic name;
@@ -32,7 +33,7 @@
 @dynamic updated_at;
 @dynamic access_token;
 @dynamic keys;
-
+@dynamic pending_activities;
 - (void)changeLockStateTo:(NSNumber *)newState {
     NSString *newStateAsString = ([newState integerValue] == 0) ? @"unlock" : @"lock";
     NSLog(@"HMLock:lock:%@ request state change to %@", self.name, newState);

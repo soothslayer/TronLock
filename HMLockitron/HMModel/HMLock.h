@@ -2,14 +2,15 @@
 //  HMLock.h
 //  TronLock
 //
-//  Created by Hanlon Miller on 2/26/15.
+//  Created by Hanlon Miller on 3/6/15.
 //  Copyright (c) 2015 Hanlon Miller Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class HMAccessToken, HMKey;
+@class HMAccessToken, HMKey, HMPendingActivity;
+
 typedef NS_ENUM(NSInteger, LockitronSDKLockState) {
     LockitronSDKLockNotConfigured = -1,
     LockitronSDKLockOpen,
@@ -20,6 +21,7 @@ typedef NS_ENUM(NSInteger, LockitronSDKLockButtonType) {
     LockitronSDKLockitronNew,
     LockitronSDKLockitronOld
 };
+
 @interface HMLock : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * avr_update_progress;
@@ -28,7 +30,7 @@ typedef NS_ENUM(NSInteger, LockitronSDKLockButtonType) {
 @property (nonatomic, retain) NSNumber * ble_update_progress;
 @property (nonatomic, retain) NSNumber * button_type;
 @property (nonatomic, retain) NSNumber * handedness;
-@property (nonatomic, retain) NSString * harrdware_id;
+@property (nonatomic, retain) NSString * hardware_id;
 @property (nonatomic, retain) NSString * id;
 @property (nonatomic, retain) NSDate * last_heard_from;
 @property (nonatomic, retain) NSString * name;
@@ -41,9 +43,8 @@ typedef NS_ENUM(NSInteger, LockitronSDKLockButtonType) {
 @property (nonatomic, retain) NSDate * updated_at;
 @property (nonatomic, retain) HMAccessToken *access_token;
 @property (nonatomic, retain) NSSet *keys;
-
+@property (nonatomic, retain) NSSet *pending_activities;
 - (void)changeLockStateTo:(NSNumber *)newState;
-
 @end
 
 @interface HMLock (CoreDataGeneratedAccessors)
@@ -52,5 +53,10 @@ typedef NS_ENUM(NSInteger, LockitronSDKLockButtonType) {
 - (void)removeKeysObject:(HMKey *)value;
 - (void)addKeys:(NSSet *)values;
 - (void)removeKeys:(NSSet *)values;
+
+- (void)addPending_activitiesObject:(HMPendingActivity *)value;
+- (void)removePending_activitiesObject:(HMPendingActivity *)value;
+- (void)addPending_activities:(NSSet *)values;
+- (void)removePending_activities:(NSSet *)values;
 
 @end

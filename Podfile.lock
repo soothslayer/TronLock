@@ -1,10 +1,13 @@
 PODS:
   - CRToast (0.0.7)
+  - DejalActivityView (1.2)
 
 DEPENDENCIES:
   - CRToast (~> 0.0.7)
+  - DejalActivityView
 
 SPEC CHECKSUMS:
   CRToast: f9f2c4b29776d68ba24c4d621cba59a83fea921b
+  DejalActivityView: ef0970deefe891fefd57af27765ddb21a8265755
 
 COCOAPODS: 0.36.0.rc.1

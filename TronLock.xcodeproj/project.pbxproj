@@ -7,9 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26129DB518AB256C38A69287 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B52794D7CF682FDCA2F9ADD /* libPods.a */; };
 		48DF6FDE1ABD11501B659D36 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B52794D7CF682FDCA2F9ADD /* libPods.a */; };
 		FD0BFE1D1AA554BE00FA13F1 /* HMLockNameCell.h in Headers */ = {isa = PBXBuildFile; fileRef = FD0BFE1B1AA554BE00FA13F1 /* HMLockNameCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD0BFE1E1AA554BE00FA13F1 /* HMLockNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0BFE1C1AA554BE00FA13F1 /* HMLockNameCell.m */; };
+		FD0BFE251AAA516F00FA13F1 /* HMPendingActivity.h in Headers */ = {isa = PBXBuildFile; fileRef = FD0BFE231AAA516F00FA13F1 /* HMPendingActivity.h */; };
+		FD0BFE261AAA516F00FA13F1 /* HMPendingActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0BFE241AAA516F00FA13F1 /* HMPendingActivity.m */; };
+		FD0BFE291AAA51F400FA13F1 /* HMLock.h in Headers */ = {isa = PBXBuildFile; fileRef = FD0BFE271AAA51F400FA13F1 /* HMLock.h */; };
+		FD0BFE2A1AAA51F400FA13F1 /* HMLock.m in Sources */ = {isa = PBXBuildFile; fileRef = FD0BFE281AAA51F400FA13F1 /* HMLock.m */; };
 		FD62B76A1A9ACBB800DBB047 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FD62B7691A9ACBB800DBB047 /* main.m */; };
 		FD62B76D1A9ACBB800DBB047 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FD62B76C1A9ACBB800DBB047 /* AppDelegate.m */; };
 		FD62B7701A9ACBB800DBB047 /* TronLock.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD62B76E1A9ACBB800DBB047 /* TronLock.xcdatamodeld */; };
@@ -35,8 +40,6 @@
 		FD62B7E61A9BB68000DBB047 /* HMJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FD62B7E41A9BB68000DBB047 /* HMJSONParser.m */; };
 		FD8A6BEA1A9FA24F0094DE33 /* HMLockitronViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FD8A6BE81A9FA24F0094DE33 /* HMLockitronViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD8A6BEB1A9FA2500094DE33 /* HMLockitronViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8A6BE91A9FA24F0094DE33 /* HMLockitronViewController.m */; };
-		FD8A6BEE1A9FA5DF0094DE33 /* HMLock.h in Headers */ = {isa = PBXBuildFile; fileRef = FD8A6BEC1A9FA5DF0094DE33 /* HMLock.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FD8A6BEF1A9FA5DF0094DE33 /* HMLock.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8A6BED1A9FA5DF0094DE33 /* HMLock.m */; };
 		FD8A6BF21A9FA5E10094DE33 /* HMKey.h in Headers */ = {isa = PBXBuildFile; fileRef = FD8A6BF01A9FA5E10094DE33 /* HMKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FD8A6BF31A9FA5E10094DE33 /* HMKey.m in Sources */ = {isa = PBXBuildFile; fileRef = FD8A6BF11A9FA5E10094DE33 /* HMKey.m */; };
 		FD8A6BF61A9FA5E10094DE33 /* HMUser.h in Headers */ = {isa = PBXBuildFile; fileRef = FD8A6BF41A9FA5E10094DE33 /* HMUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -99,6 +102,10 @@
 		FD0BFE1C1AA554BE00FA13F1 /* HMLockNameCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLockNameCell.m; sourceTree = "<group>"; };
 		FD0BFE1F1AAA228500FA13F1 /* libPods-CRToast.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-CRToast.a"; path = "Pods/build/Debug-iphoneos/libPods-CRToast.a"; sourceTree = "<group>"; };
 		FD0BFE211AAA22D800FA13F1 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		FD0BFE231AAA516F00FA13F1 /* HMPendingActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMPendingActivity.h; sourceTree = "<group>"; };
+		FD0BFE241AAA516F00FA13F1 /* HMPendingActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMPendingActivity.m; sourceTree = "<group>"; };
+		FD0BFE271AAA51F400FA13F1 /* HMLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLock.h; sourceTree = "<group>"; };
+		FD0BFE281AAA51F400FA13F1 /* HMLock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLock.m; sourceTree = "<group>"; };
 		FD62B7641A9ACBB800DBB047 /* TronLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TronLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD62B7681A9ACBB800DBB047 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD62B7691A9ACBB800DBB047 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -131,8 +138,6 @@
 		FD62B7E41A9BB68000DBB047 /* HMJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMJSONParser.m; sourceTree = "<group>"; };
 		FD8A6BE81A9FA24F0094DE33 /* HMLockitronViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLockitronViewController.h; sourceTree = "<group>"; };
 		FD8A6BE91A9FA24F0094DE33 /* HMLockitronViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLockitronViewController.m; sourceTree = "<group>"; };
-		FD8A6BEC1A9FA5DF0094DE33 /* HMLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMLock.h; sourceTree = "<group>"; };
-		FD8A6BED1A9FA5DF0094DE33 /* HMLock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMLock.m; sourceTree = "<group>"; };
 		FD8A6BF01A9FA5E10094DE33 /* HMKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMKey.h; sourceTree = "<group>"; };
 		FD8A6BF11A9FA5E10094DE33 /* HMKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMKey.m; sourceTree = "<group>"; };
 		FD8A6BF41A9FA5E10094DE33 /* HMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMUser.h; sourceTree = "<group>"; };
@@ -164,6 +169,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26129DB518AB256C38A69287 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,8 +344,10 @@
 				FD8A6BF51A9FA5E10094DE33 /* HMUser.m */,
 				FD8A6BF01A9FA5E10094DE33 /* HMKey.h */,
 				FD8A6BF11A9FA5E10094DE33 /* HMKey.m */,
-				FD8A6BEC1A9FA5DF0094DE33 /* HMLock.h */,
-				FD8A6BED1A9FA5DF0094DE33 /* HMLock.m */,
+				FD0BFE231AAA516F00FA13F1 /* HMPendingActivity.h */,
+				FD0BFE241AAA516F00FA13F1 /* HMPendingActivity.m */,
+				FD0BFE271AAA51F400FA13F1 /* HMLock.h */,
+				FD0BFE281AAA51F400FA13F1 /* HMLock.m */,
 			);
 			name = HMModel;
 			path = HMLockitron/HMModel;
@@ -386,12 +394,13 @@
 				FD62B7E11A9BB5EF00DBB047 /* HMLockitronManager.h in Headers */,
 				FD0BFE1D1AA554BE00FA13F1 /* HMLockNameCell.h in Headers */,
 				FD8A6BF61A9FA5E10094DE33 /* HMUser.h in Headers */,
-				FD8A6BEE1A9FA5DF0094DE33 /* HMLock.h in Headers */,
 				FD8A6BF21A9FA5E10094DE33 /* HMKey.h in Headers */,
 				FD8A6BEA1A9FA24F0094DE33 /* HMLockitronViewController.h in Headers */,
 				FD62B7D91A9BB53900DBB047 /* HMAuthenticator.h in Headers */,
 				FD8A6BFA1A9FA5E10094DE33 /* HMAccessToken.h in Headers */,
+				FD0BFE291AAA51F400FA13F1 /* HMLock.h in Headers */,
 				FD62B7DD1A9BB58900DBB047 /* HMLockitronAPI.h in Headers */,
+				FD0BFE251AAA516F00FA13F1 /* HMPendingActivity.h in Headers */,
 				FD62B7E51A9BB68000DBB047 /* HMJSONParser.h in Headers */,
 				FD62B79A1A9ACBE400DBB047 /* HMLockitron.h in Headers */,
 			);
@@ -443,10 +452,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD62B7AE1A9ACBE400DBB047 /* Build configuration list for PBXNativeTarget "HMLockitron" */;
 			buildPhases = (
+				A583BEC579A20A54C839986D /* Check Pods Manifest.lock */,
 				FD62B7901A9ACBE400DBB047 /* Sources */,
 				FD62B7911A9ACBE400DBB047 /* Frameworks */,
 				FD62B7921A9ACBE400DBB047 /* Headers */,
 				FD62B7931A9ACBE400DBB047 /* Resources */,
+				0913C83DEE9D9997CBDA2AD1 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -557,6 +568,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0913C83DEE9D9997CBDA2AD1 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A583BEC579A20A54C839986D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		DB961162D376ABFE18A36187 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -615,14 +656,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD8A6BF31A9FA5E10094DE33 /* HMKey.m in Sources */,
+				FD0BFE261AAA516F00FA13F1 /* HMPendingActivity.m in Sources */,
 				FD0BFE1E1AA554BE00FA13F1 /* HMLockNameCell.m in Sources */,
 				FD62B7E21A9BB5EF00DBB047 /* HMLockitronManager.m in Sources */,
-				FD8A6BEF1A9FA5DF0094DE33 /* HMLock.m in Sources */,
 				FD62B7E61A9BB68000DBB047 /* HMJSONParser.m in Sources */,
 				FD8A6BEB1A9FA2500094DE33 /* HMLockitronViewController.m in Sources */,
 				FD62B7D61A9BB3DD00DBB047 /* HMDataAccessor.m in Sources */,
 				FD8A6BFB1A9FA5E10094DE33 /* HMAccessToken.m in Sources */,
 				FD62B7DE1A9BB58900DBB047 /* HMLockitronAPI.m in Sources */,
+				FD0BFE2A1AAA51F400FA13F1 /* HMLock.m in Sources */,
 				FD8A6BF71A9FA5E10094DE33 /* HMUser.m in Sources */,
 				FD62B7DA1A9BB53900DBB047 /* HMAuthenticator.m in Sources */,
 			);

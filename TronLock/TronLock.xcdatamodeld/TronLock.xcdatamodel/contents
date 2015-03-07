@@ -23,7 +23,7 @@
         <attribute name="ble_update_progress" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="button_type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="handedness" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="harrdware_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hardware_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="last_heard_from" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,7 +35,17 @@
         <attribute name="time_zone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updated_at" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="access_token" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HMAccessToken" inverseName="locks" inverseEntity="HMAccessToken" syncable="YES"/>
-        <relationship name="keys" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HMKey" inverseName="lock" inverseEntity="HMKey" syncable="YES"/>
+        <relationship name="keys" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HMKey" inverseName="lock" inverseEntity="HMKey" syncable="YES"/>
+        <relationship name="pending_activities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HMPendingActivity" inverseName="lock" inverseEntity="HMPendingActivity" syncable="YES"/>
+    </entity>
+    <entity name="HMPendingActivity" representedClassName="HMPendingActivity" syncable="YES">
+        <attribute name="created_at" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="kind" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="request_status" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="updated_value" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="lock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HMLock" inverseName="pending_activities" inverseEntity="HMLock" syncable="YES"/>
     </entity>
     <entity name="HMUser" representedClassName="HMUser" syncable="YES">
         <attribute name="activated" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -53,8 +63,9 @@
     </entity>
     <elements>
         <element name="HMAccessToken" positionX="-216" positionY="-315" width="128" height="88"/>
-        <element name="HMLock" positionX="-45" positionY="-124" width="128" height="328"/>
         <element name="HMKey" positionX="124" positionY="26" width="128" height="178"/>
+        <element name="HMLock" positionX="-45" positionY="-124" width="128" height="343"/>
         <element name="HMUser" positionX="331" positionY="-34" width="128" height="223"/>
+        <element name="HMPendingActivity" positionX="108" positionY="-306" width="128" height="148"/>
     </elements>
 </model>

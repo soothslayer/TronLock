@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-DejalActivityView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2D954475A97F65FB79052CA5</key>
+		<key>284128945D425F984E20C157</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B0F5FF9D3406C310F9505ECE</key>
+		<key>539FC38A92E90220EC74F912</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD4EA0754C1719C3258A96C4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

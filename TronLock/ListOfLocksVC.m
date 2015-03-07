@@ -9,7 +9,7 @@
 #import "ListofLocksVC.h"
 #import "AccessTokenExpiredVC.h"
 #import "AppDelegate.h"
-
+#import <DejalActivityView/DejalActivityView.h>
 @interface ListOfLocks () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
@@ -62,11 +62,14 @@
 
 }
 - (void)refreshAllLocks {
-    [super refreshAllLocks];
+    [self.tableView reloadData];
+    [DejalActivityView removeView];
     
 }
 - (void)showLoginVCbecauseAccessTokenIsExpiredOrNil:(NSString *)expiredOrNil {
     [self.navigationController presentViewController:[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AccessTokenExpiredVC"] animated:YES completion:nil];
+    [DejalActivityView activityViewForView:self.view withLabel:@"Loading Locks..."];
+
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     

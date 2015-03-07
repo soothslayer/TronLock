@@ -13,6 +13,7 @@
 #import "HMUser.h"
 #import "HMDataAccessor.h"
 #import "HMJSONParser.h"
+#import "HMPendingActivity.h"
 
 @interface HMLockitronAPI ()
 
@@ -29,7 +30,6 @@
     if (self == [super init]) {
         _delegate = self.delegate;
         _dataAccessor = [HMDataAccessor new];
-        _accessTokenObject = [_dataAccessor fetchEntitiesWithName:@"HMAccessToken"][0];
     }
     //set up the date formatter and number formatter
     dateFormatter = [NSDateFormatter new];
@@ -40,6 +40,7 @@
 }
 
 - (id)requestAllLocksFromLockitronAPI {
+    _accessTokenObject = [_dataAccessor fetchEntitiesWithName:@"HMAccessToken"][0];
     return [self lockitronAPIRequestforLocksorUsers:@"locks" withRequestMethod:@"GET" andDirectory:nil andAruments:nil];
 }
 - (id)lockitronAPIRequestforLocksorUsers:(NSString *)locksOrUsers withRequestMethod:(NSString *)requestMethod andDirectory:(NSString *)directory andAruments:(NSDictionary *)arguments {
@@ -101,13 +102,26 @@
 }
 
 - (void)parseAllLocksFromJSON:(id)JSONresults {
-    NSLog(@"Parsing data from JSON");
-    for (NSDictionary *item in JSONresults)
-    {
-        [self parseLockInfofromJSONData:item];
-    } //end of iterating through the locks
-    
+    NSMutableArray *locksFromTheWeb = [NSMutableArray array];
+    if ([JSONresults isKindOfClass:[NSArray class]]) {
+        for (NSDictionary *item in JSONresults)
+        {
+            [self parseLockInfofromJSONData:item];
+            [locksFromTheWeb addObject:[item objectForKey:@"id"]];
+        } //end of iterating through the locks
+    } else if ([JSONresults isKindOfClass:[NSDictionary class]]) {
+        [self parseLockInfofromJSONData:JSONresults];
+        [locksFromTheWeb addObject:[JSONresults objectForKey:@"id"]];
+    }
     NSLog(@"Finished loading locks");
+    [_dataAccessor save];
+    NSSet *locksFromMemory = _accessTokenObject.locks;
+    NSSet *locksInMemoryThatDontExistOnWeb = [locksFromMemory objectsPassingTest:^BOOL(id obj, BOOL *stop){
+        HMLock *tempLock = (HMLock *)obj;
+        //return only locks whose id is not found in locks from the web
+        return [locksFromTheWeb indexOfObject:tempLock.id] == NSNotFound;
+    }];
+    [_accessTokenObject removeLocks:locksInMemoryThatDontExistOnWeb];
     [_dataAccessor save];
 }
 - (HMLock *)parseLockInfofromJSONData:(NSDictionary *)item {
@@ -132,7 +146,6 @@
             [_delegate lockNotificationNewID:lock.id];
         }
     }
-    //NSLog(@"associating access token with lock");
     
     lock.access_token = _accessTokenObject;
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
@@ -184,6 +197,20 @@
     lock.time_zone = [item objectForKey:@"time_zone"];
     lock.updated_at = [dateFormatter dateFromString:[item objectForKey:@"updated_at"]];
     
+    //check if there is any pending activity
+    if ([HMJSONParser parse:item ObjectForKey:@"pending_activity"]) {
+        //check if it's an array of multiple activities
+        if ([[item objectForKey:@"pending_activity"] isKindOfClass:[NSArray class]]) {
+            //iterate through each dictionary in the array and parse it
+            for (NSDictionary *pendingActivity in [item objectForKey:@"pending_activity"]) {
+                [self parsePendingActivityInfofromJSONdata:pendingActivity associatedWithLock:lock];
+            }
+        } else { //it must be a dictionary of a single pending activity
+            [self parsePendingActivityInfofromJSONdata:[item objectForKey:@"pending_activity"] associatedWithLock:lock];
+        }
+    } else { //pending activity must be nil/null so delete any pending activities in core data
+        lock.pending_activities = nil;
+    }
     return lock;
 }
 - (HMKey *)parseKeyInfofromJSONData:(NSDictionary *)JSONData associatedWithLock:(HMLock *)lock {
@@ -236,7 +263,7 @@
     return key;
 }
 - (HMUser *)parseUserInfofromJSONdata:(NSDictionary *)JSONData associatedWithKey:(HMKey *)key {
-    //this will be thee working lock that ether holds an exisisting or new CoreData entity
+    //this will be thee working user that ether holds an exisisting or new CoreData entity
     HMUser *user = [_dataAccessor createNewEntityWithName:@"HMUser"];
     
     BOOL wasFound = NO;
@@ -269,16 +296,32 @@
     //    if ([JSONData objectForKey:@"phone"] != [NSNull null]) {
     //        user.phone = [JSONData objectForKey:@"phone"];
     //    }
-    user.phone = [HMLockitronAPI parse:JSONData ObjectForKey:@"phone"];
+    user.phone = [HMJSONParser parse:JSONData ObjectForKey:@"phone"];
     user = key.user;
     
     return user;
 }
-+ (id)parse:(NSDictionary *)dictionary ObjectForKey:(NSString *)key {
-    if ([dictionary objectForKey:key] == [NSNull null]) {
-        return nil;
+- (HMPendingActivity *)parsePendingActivityInfofromJSONdata:(NSDictionary *)JSONData associatedWithLock:(HMLock *)lock {
+    //this will be thee working key that ether holds an exisisting or new CoreData entity
+    HMPendingActivity *pendingActivity = [_dataAccessor createNewEntityWithName:@"HMPendingActivity"];
+    
+    BOOL wasFound = NO;
+    //get the keys associated with this lock
+    for (HMPendingActivity *pendingActivityAssocatedWithThisLock in lock.pending_activities) {
+        if ([[JSONData objectForKey:@"id"] isEqualToString:pendingActivityAssocatedWithThisLock.id]) {
+            [_dataAccessor deleteEntityObject:pendingActivity];
+            pendingActivity = pendingActivityAssocatedWithThisLock;
+            wasFound = YES;
+        }
     }
-    return [dictionary objectForKey:key];
+    if (!wasFound) {
+        NSLog(@"Creating new pending activity since no pending activity matching id was found");
+        pendingActivity.id = [JSONData objectForKey:@"id"];
+    }
+    //NSLog(@"associating key with lock");
+    pendingActivity.lock = lock;
+    
+    return pendingActivity;
 }
 - (NSDictionary *)requestLock:(HMLock *)lock {
     return [self lockitronAPIRequestforLocksorUsers:@"locks" withRequestMethod:@"GET" andDirectory:lock.id andAruments:nil];
